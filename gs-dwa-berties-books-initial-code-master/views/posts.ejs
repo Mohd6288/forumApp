@@ -1,0 +1,16 @@
+<!-- posts.ejs -->
+<html>
+<head>
+    <title>Coding Forum</title>
+    <link rel="stylesheet"  type="text/css" href="/main.css" />
+</head>
+<body>
+    <h1>Coding Forum</h1>
+    <h2>Shear Your idea and tips</h2>
+    <ul>
+        <% for (let post of availablePosts) { %>
+            <li><%= post.user_id %> <%= post.topic_id %> <%= post.post_id %> - $ <%=  post.text %></li>
+        <% } %>
+    </ul>
+</body>
+</html>

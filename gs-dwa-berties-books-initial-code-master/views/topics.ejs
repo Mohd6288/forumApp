@@ -1,0 +1,16 @@
+<!-- topics.ejs -->
+<html>
+<head>
+    <title>Coding Forum</title>
+    <link rel="stylesheet"  type="text/css" href="/main.css" />
+</head>
+<body>
+    <h1>Coding Forum</h1>
+    <h2>Today Topics</h2>
+    <ul>
+        <% for (let topic of availableTopics) { %>
+            <li><%= topic.topic_id %> <%= topic.topic_name %> <%= topic.topic_email %></li>
+        <% } %>
+    </ul>
+</body>
+</html>
