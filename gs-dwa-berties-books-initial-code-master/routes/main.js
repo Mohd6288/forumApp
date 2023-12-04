@@ -10,10 +10,44 @@ module.exports = function(app, forumData) {
     app.get('/search',function(req,res){
         res.render("search.ejs", forumData);
     });
-    app.get('/search-result', function (req, res) {
-        //searching in the database
-        res.send("You searched for: " + req.query.keyword);
+        /*
+    This route handles the search functionality for books based on a given keyword.
+    It first attempts to find an exact match for the keyword in the database.
+    If an exact match is found, it renders the "search-result.ejs" template with the exact match result.
+    If no exact match is found, it performs a partial match search and renders the template with the partial match result.
+    If there are still no matches, it includes a message indicating that no results were found.
+    The rendered template includes the search results and an optional message, and it is combined with the existing shopData for display.
+    */
+   
+   // Search result route
+   app.get('/search-result', function (req, res) {
+    const searchKeyword = req.query.keyword;
+    const queryParamExact = [searchKeyword];
+    const queryParamPartial = ['%' + searchKeyword + '%'];
+    const sqlqueryExact = `SELECT * FROM posts WHERE text = ?`;
+    const sqlqueryPartial = `SELECT * FROM posts WHERE text LIKE ?`;
+
+    db.query(sqlqueryExact, queryParamExact, (errExact, resultExact) => {
+        if (errExact) {
+            console.error('Error executing exact match SQL query:', errExact);
+            return;
+        }
+
+        if (resultExact.length > 0) {
+            res.render("search-result.ejs", Object.assign({}, forumData, { result: resultExact, message: null }));
+        } else {
+            db.query(sqlqueryPartial, queryParamPartial, (errPartial, resultPartial) => {
+                if (errPartial) {
+                    console.error('Error executing partial match SQL query:', errPartial);
+                    return;
+                }
+
+                const message = resultPartial.length > 0 ? null : 'No matching results found.';
+                res.render("search-result.ejs", Object.assign({}, forumData, { result: resultPartial, message: message }));
+            });
+        }
     });
+});
     app.get('/register', function (req,res) {
         res.render('register.ejs', forumData);                                                                     
     });                                                                                                 
@@ -68,4 +102,30 @@ module.exports = function(app, forumData) {
             res.render("topics.ejs", newData);
         });
     });
+
+    
+
+    // Add book page route
+    app.get('/addpost', function (req, res) {
+        res.render("addpost.ejs", forumData);
+    });
+
+    // Book added post route
+    app.post('/postadded', function (req, res) {
+        // saving data in the database
+        let sqlquery = "INSERT INTO posts (user_id, topic_id, text) VALUES (?, ? , ?)"; // add the book with value name and price should not be null 
+        // execute sql query
+        let newrecord = [req.body.user_id, req.body.topic_id,req.body.text];
+        db.query(sqlquery, newrecord, (err, result) => {
+            if (err) {
+                return console.error(err.message);
+            } else {
+                res.send(' This book is added to the database, name: '
+                    + req.body.user_id + ' user Number add somthing about' + req.body.topic_id + 'Is says ' + req.body.text);
+            }
+        });
+    });
+
+
+
 }

@@ -1,0 +1,21 @@
+<!-- search_result.ejs -->
+<html>
+<head>
+    <title>Coding Forum</title>
+    <link rel="stylesheet"  type="text/css" href="/main.css" />
+</head>
+<body>
+    <h1>Coding Forum</h1>
+    <h2>Search result:</h2>
+<!-- conditions if the result is found or not  -->
+    <% if (message) { %>
+        <p><%= message %></p>
+    <% } else { %>
+        <ul>
+            <% for (let post of result) { %>
+                <li><%= post.post_id %> <%= post.text %></li>
+            <% } %>
+        </ul>
+    <% } %>
+</body>
+</html>
