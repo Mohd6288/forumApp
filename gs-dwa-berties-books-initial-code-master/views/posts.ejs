@@ -10,6 +10,13 @@
     <ul>
         <% for (let post of availablePosts) { %>
             <li><%= post.user_id %> <%= post.topic_id %> <%= post.post_id %> - $ <%=  post.text %></li>
+            <form method="POST" action="/replyadded">
+                <p>User ID: <input id="user-id" type="number" name="user_id"/></p>
+                <p>Topic ID: <input id="topic-id" type="number" name="topic_id"/></p>
+                <p>Post ID: <input id="post-id" type="number" name="post_id"/></p>
+                <p>Reply: <input id="reply_text" type="text" name="reply_text" size="100"/></p>
+                <input type="submit" value="Add Reply" />
+            </form>            
         <% } %>
     </ul>
 </body>

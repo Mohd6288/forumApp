@@ -50,14 +50,63 @@ module.exports = function(app, forumData) {
 });
     app.get('/register', function (req,res) {
         res.render('register.ejs', forumData);                                                                     
-    });                                                                                                 
-    app.post('/registered', function (req,res) {
-        // saving data in database
-        res.send(' Hello '+ req.body.first + ' '+ req.body.last +' you are now registered!  We will send an email to you at ' + req.body.email);                                                                              
     }); 
+
+    // app.post('/registered', function (req, res) {
+    //     // Get user registration data from the request body
+    //     const { first, last, email } = req.body;
+    
+    //     // Perform validation on user input (e.g., check for empty fields, valid email format)
+    
+    //     // Insert the user data into the 'users' table
+    //     const insertUserQuery = 'INSERT INTO users (user_name, user_email) VALUES (?, ?)';
+    //     const user_name = `${first.charAt(0)}${last.slice(0, 4)}`; // make user name uniqe 
+    //     const userValues = [user_name, email];
+    //     const registration_date = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    //     console.log(registration_date);
+    
+    //     db.query(insertUserQuery, userValues, (err, result) => {
+    //         if (err) {
+    //             console.error('Error inserting user into database:', err);
+    //             res.status(500).send('Error registering user');
+    //             return;
+    //         }
+    
+    //         // Assuming the user is successfully inserted, send a registration success message
+    //         res.send(`Hello ${first} ${last} your user name is ${user_name}, you are now registered! We will send an email to you at ${email}`);
+    //     });
+    // });
+    app.post('/registered', function (req, res) {
+        // Get user registration data from the request body
+        const { first, last, email } = req.body;
+    
+        // Perform validation on user input
+        if (!first || !last || !email) {
+            return res.status(400).json({ error: 'Invalid input. Please provide first name, last name, and email.' });
+        }
+    
+        // Insert the user data into the 'users' table
+        const user_name = `${first.charAt(0)}${last.slice(0, 4)}`; //registered_date
+        const insertUserQuery = 'INSERT INTO users (user_name, user_email, registered_date) VALUES (?, ?, ?)';
+        const userValues = [user_name, email, new Date().toISOString().slice(0, 19).replace('T', ' ')];
+    
+        db.query(insertUserQuery, userValues, (err, result) => {
+            if (err) {
+                console.error('Error inserting user into database:', err);
+                return res.status(500).json({ error: 'Error registering user' });
+            }
+    
+            // Assuming the user is successfully inserted, send a registration success message
+            res.json({ message: `Hello ${first} ${last}, your user name is ${user_name}. You are now registered! We will send an email to you at ${email}` });
+        });
+    });
+    
+    
+
     app.get('/posts', function(req, res) {
         let sqlquery = "SELECT * FROM posts"; // query database to get all the books
         // execute sql query
+        
         db.query(sqlquery, (err, result) => {
             if (err) {
                 res.redirect('./'); 
@@ -126,6 +175,20 @@ module.exports = function(app, forumData) {
         });
     });
 
+    app.post('/replyadded', function (req, res) {
+        // saving data in the database
+        let sqlquery = "INSERT INTO reply (post_id, user_id, topic_id, reply_text) VALUES (?, ?, ?, ?)";
+        let newrecord = [req.body.post_id, req.body.user_id, req.body.topic_id, req.body.reply_text];
+
+        db.query(sqlquery, newrecord, (err, result) => {
+            if (err) {
+                return console.error(err.message);
+            } else {
+                res.send('the reply Added to '
+                    + req.body.post_id + ' you side ' + req.body.reply_text);
+            }
+        });
+    });
 
 
 }
