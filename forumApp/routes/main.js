@@ -106,7 +106,8 @@ module.exports = function(app, forumData) {
     app.get('/posts', function(req, res) {
         let sqlquery = "SELECT * FROM posts"; // query database to get all the books
         // execute sql query
-        
+        // SELECT * FROM posts p JOIN reply r ON p.post_id = r.post_id
+
         db.query(sqlquery, (err, result) => {
             if (err) {
                 res.redirect('./'); 
@@ -115,7 +116,7 @@ module.exports = function(app, forumData) {
             // object to create a new object called newData.
             //   This is all our data packaged up, ready to pass to the ejs file.
             let newData = Object.assign({}, forumData, { availablePosts: result });
-            //console.log(newData)
+            console.log(newData)
             res.render("posts.ejs", newData);
         });
     });
