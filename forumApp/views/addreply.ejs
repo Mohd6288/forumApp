@@ -8,6 +8,7 @@
 <body>
     <p><a href="/">Back</a></p>
     <h1>Coding Forum - Posts Table</h1>
+   
     <table border="1">
         <thead>
             <tr>
@@ -15,12 +16,13 @@
                 <th>Post Text</th>
                 <th>Topic ID</th>
                 <th>Topic Name</th>
-                <th>User ID</th>
-                <th>User Name</th>
+                <th>Poster ID</th>
+                <th>Poster Name</th>
+                <th>Replies</th>
             </tr>
         </thead>
         <tbody>
-            <% for (let post of availablePosts) { %>
+            <% for (let post of availableReply) { %>
                 <tr>
                     <td><%= post.post_id %></td>
                     <td><%= post.post_text %></td>
@@ -28,10 +30,18 @@
                     <td><%= post.topic_name %></td>
                     <td><%= post.poster_id %></td>
                     <td><%= post.poster_name %></td>
+                    <td><%= post.replies %></td>
                 </tr>
+            </tbody>
             <% } %>
-        </tbody>
-    </table>
+        </table>
+        <form method="POST" action="/replyadded">
+            <p>User ID: <input id="user-id" type="number" name="user_id"/></p>
+            <p>Topic ID: <input id="topic-id" type="number" name="topic_id"/></p>
+            <p>Post ID: <input id="post-id" type="number" name="post_id"/></p>
+            <p>Reply: <input id="reply_text" type="text" name="reply_text"/></p>
+            <input type="submit" value="Add Reply" />
+        </form>
 </body>
 </html>
 

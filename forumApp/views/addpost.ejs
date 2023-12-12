@@ -1,16 +1,31 @@
-<!doctype html>
-<html>
-  <head>
-    <title>add post <%=forumName%></title>
-    <link rel="stylesheet"  type="text/css" href="/main.css" />
-  </head>
-  <body>
-    <h1>Add Post <%=forumName%></h1>
-        <form method="POST" action="/postadded">
-            <p>User name : <input id="user-id" type="number" name="user_id"/></p>
-            <p>Topic Name : <input id="topic_id" type="number" name="topic_id"/></p>
-            <p>post text<input id="text" type="text" name="text" size="100"/></p>
-            <input type="submit" value="Add Post" />
-          </form>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Post - <%= forumName %></title>
+    <link rel="stylesheet" type="text/css" href="/main.css">
+</head>
+<body>
+    <p><a href="/">Back</a></p>
+    <h1>Add Post - <%= forumName %></h1>
+
+    <form method="POST" action="/addpost">
+        <p>
+            <label for="user-name">User Name:</label>
+            <input id="user-name" type="text" name="username" required>
+        </p>
+        <p>
+            <label for="topic-name">Topic Name:</label>
+            <input id="topic-name" type="text" name="topicname" required>
+        </p>
+        <p>
+            <label for="post-text">Post Text:</label>
+            <textarea id="post-text" name="post_text" rows="4" cols="50" required></textarea>
+        </p>
+        <p>
+            <input type="submit" value="Add Post">
+        </p>
+    </form>
+</body>
 </html>

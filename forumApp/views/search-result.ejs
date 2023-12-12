@@ -5,6 +5,7 @@
     <link rel="stylesheet"  type="text/css" href="/main.css" />
 </head>
 <body>
+    <p><a href="/">Back</a></p>
     <h1>Coding Forum</h1>
     <h2>Search result:</h2>
 <!-- conditions if the result is found or not  -->
@@ -13,7 +14,7 @@
     <% } else { %>
         <ul>
             <% for (let post of result) { %>
-                <li><%= post.post_id %> <%= post.text %></li>
+                <li><%= post.post_id %> <%= post.post_text %></li>
             <% } %>
         </ul>
     <% } %>

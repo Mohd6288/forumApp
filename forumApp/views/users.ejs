@@ -1,16 +1,35 @@
 <!-- users.ejs -->
 <html>
+
 <head>
     <title>Coding Forum</title>
-    <link rel="stylesheet"  type="text/css" href="/main.css" />
+    <link rel="stylesheet" type="text/css" href="/main.css" />
 </head>
+
 <body>
+    <p><a href="/">Back</a></p>
     <h1>Coding Forum</h1>
     <h2>Find out Our Lovely Users</h2>
-    <ul>
-        <% for (let user of ourUsers) { %>
-            <li>User ID :<%= user.user_id %> User Name :<%= user.user_name %> USER Email :  <%= user.user_email %> registertion date : <%= user.registered_date %></li>
-        <% } %>
-    </ul>
+    <table>
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>User Name</th>
+                <th>User Email</th>
+                <th>Registration Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (let user of ourUsers) { %>
+                <tr>
+                    <td><%= user.user_id %></td>
+                    <td><%= user.user_name %></td>
+                    <td><%= user.user_email %></td>
+                    <td><%= user.registered_date %></td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
 </body>
+
 </html>

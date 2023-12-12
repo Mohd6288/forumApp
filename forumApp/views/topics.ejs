@@ -1,16 +1,33 @@
 <!-- topics.ejs -->
 <html>
+
 <head>
     <title>Coding Forum</title>
-    <link rel="stylesheet"  type="text/css" href="/main.css" />
+    <link rel="stylesheet" type="text/css" href="/main.css" />
 </head>
+
 <body>
+    <p><a href="/">Back</a></p>
     <h1>Coding Forum</h1>
-    <h2>Today Topics</h2>
-    <ul>
-        <% for (let topic of availableTopics) { %>
-            <li><%= topic.topic_id %> <%= topic.topic_name %> <%= topic.topic_email %></li>
-        <% } %>
-    </ul>
+    <h2>Today's Topics</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Topic ID</th>
+                <th>Topic Name</th>
+                <!-- Add any additional columns here -->
+            </tr>
+        </thead>
+        <tbody>
+            <% for (let topic of availableTopics) { %>
+                <tr>
+                    <td><%= topic.topic_id %></td>
+                    <td><%= topic.topic_name %></td>
+                    <!-- Add any additional columns here -->
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
 </body>
+
 </html>
