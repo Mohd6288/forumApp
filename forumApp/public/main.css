@@ -4,6 +4,11 @@ body {
   background-color: #f2f2f2;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
 }
 
 /* Header styles */
@@ -69,35 +74,52 @@ tr:nth-child(even) {
 tr:hover {
   background-color: #ddd;
 }
-/* main.css */
+
+/* Form container styles */
 form {
   display: flex;
-  flex-direction: column;
-  width: 300px;
-  margin: 20px auto;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-top: 20px;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
 
-input,
-textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 16px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+form p {
+  width: 48%; /* Adjust as needed */
+  margin-bottom: 16px;
 }
 
-input[type="submit"] {
-    background-color: orangered;
-    color: #fff;
-    cursor: pointer;
+form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+form input,
+form textarea {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+form input[type="submit"] {
+  width: auto; /* Adjust as needed */
+  background-color: orangered;
+  color: #fff;
+  cursor: pointer;
+}
+
+form input[type="submit"]:hover {
+  background-color: #ff6f42;
 }
 
 input[type="submit"]:hover {
-    background-color: #ff6f42;
+  background-color: #ff6f42;
 }
 
 form button:hover {
