@@ -1,14 +1,15 @@
-<!-- postsTable.ejs -->
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Coding Forum - Posts Table</title>
-    <link rel="stylesheet" type="text/css" href="/main.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Reply</title>
+    <link rel="stylesheet" type="text/css" href="/main.css">
 </head>
 <body>
     <p><a href="/">Back</a></p>
-    <h1>Coding Forum - Posts Table</h1>
-   
+    <h1>Add Reply</h1>
+
     <table border="1">
         <thead>
             <tr>
@@ -35,13 +36,29 @@
             </tbody>
             <% } %>
         </table>
-        <form method="POST" action="/replyadded">
-            <p>User ID: <input id="user-id" type="number" name="user_id"/></p>
-            <p>Topic ID: <input id="topic-id" type="number" name="topic_id"/></p>
-            <p>Post ID: <input id="post-id" type="number" name="post_id"/></p>
-            <p>Reply: <input id="reply_text" type="text" name="reply_text"/></p>
-            <input type="submit" value="Add Reply" />
-        </form>
+
+    <form method="POST" action="/addreply">
+        <p>
+            <label for="username">User Name:</label>
+            <input id="username" type="text" name="username" required>
+        </p>
+        <p>
+            <label for="topicname">Topic Name:</label>
+            <input id="topicname" type="text" name="topicname" required>
+        </p>
+        <p>
+            <label for="post_id">Post ID:</label>
+            <input id="postid" type="number" name="postid" required>
+        </p>
+        <p>
+            <label for="reply_text">Reply Text:</label>
+            <textarea id="replytext" name="replytext" rows="4" cols="50" required></textarea>
+        </p>
+        <p>
+            <input type="submit" value="Add Reply">
+        </p>
+    </form>
 </body>
 </html>
+
 
